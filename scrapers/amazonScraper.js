@@ -157,9 +157,14 @@ export async function amazonScrapeProduct(url) {
       });
     }
 
-    // Wait for dynamic content and potential redirects
+    // Wait for dynamic content and potential redirects (use fallback if waitForTimeout unavailable)
     console.log('Waiting for page content...');
-    await page.waitForTimeout(3000);
+    const wait = (ms) => new Promise(res => setTimeout(res, ms));
+    if (typeof page.waitForTimeout === 'function') {
+      await page.waitForTimeout(3000);
+    } else {
+      await wait(3000);
+    }
     
     // Check if we got redirected or if page loaded properly
     const currentUrl = page.url();

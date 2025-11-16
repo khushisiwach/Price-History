@@ -6,8 +6,6 @@ export const validateName = (name) => {
      return true;
 }
 
-
-
 export const validateEmail = (email) => {
      const emailRegex = /\S+@\S+\.\S+/;
      return emailRegex.test(email);

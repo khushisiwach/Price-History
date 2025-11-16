@@ -38,12 +38,14 @@ const TrackProducts = () => {
       setSuccess('Product added successfully! You can now track its price.');
       setUrl('');
       
-      // Redirect to my products page after 2 seconds
       setTimeout(() => {
         navigate('/my-products');
       }, 2000);
     } catch (err) {
-      setError(err.response?.data?.error || err.response?.data?.message || 'Failed to add product');
+      console.error('Add product error:', err);
+      const status = err.response?.status;
+      const serverMessage = err.response?.data?.error || err.response?.data?.message;
+      setError(serverMessage || (status ? `Request failed with status ${status}` : 'Failed to add product'));
     } finally {
       setLoading(false);
     }
@@ -65,7 +67,6 @@ const TrackProducts = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0f24] to-[#1a2b5a]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
         <div className="text-center mb-12">
           <div className="text-6xl mb-4">🎯</div>
           <h1 className="text-4xl font-bold text-white mb-4">Track New Product</h1>
@@ -74,7 +75,6 @@ const TrackProducts = () => {
           </p>
         </div>
 
-        {/* Main Form */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 mb-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -128,7 +128,6 @@ const TrackProducts = () => {
           </form>
         </div>
 
-        {/* URL Examples */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 mb-8">
           <h3 className="text-xl font-semibold text-white mb-6">Supported URL Formats</h3>
           <div className="space-y-4">
@@ -145,8 +144,6 @@ const TrackProducts = () => {
             ))}
           </div>
         </div>
-
-        {/* How it Works */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
           <h3 className="text-xl font-semibold text-white mb-6">How It Works</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

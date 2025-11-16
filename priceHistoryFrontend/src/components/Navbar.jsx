@@ -18,7 +18,6 @@ const Navbar = () => {
     <nav className="bg-[#0a0f24]/95 backdrop-blur-lg border-b border-white/10 sticky top-0 z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-18 py-2">
-          {/* Enhanced Logo */}
           <Link 
             to={isAuthenticated ? "/" : "/login"} 
             className="flex items-center space-x-3 hover:scale-105 transition-all duration-300 group"
@@ -36,7 +35,6 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Navigation Links */}
           {isAuthenticated ? (
             <div className="flex items-center space-x-6">
               <Link
@@ -47,7 +45,7 @@ const Navbar = () => {
                     : 'text-white hover:text-blue-400 hover:bg-white/5'
                 }`}
               >
-                🎯 Track Products
+                Track Products
               </Link>
               <Link
                 to="/my-products"
@@ -57,7 +55,7 @@ const Navbar = () => {
                     : 'text-white hover:text-blue-400 hover:bg-white/5'
                 }`}
               >
-                📦 My Products
+                My Products
               </Link>
               
               {/* User Menu */}

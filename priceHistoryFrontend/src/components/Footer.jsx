@@ -5,7 +5,6 @@ const Footer = () => {
     <footer className="bg-[#0a0f24] border-t border-white/10 mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="text-2xl">📊</div>
@@ -18,7 +17,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Features */}
           <div className="space-y-4">
             <h3 className="text-white font-semibold">Features</h3>
             <ul className="space-y-2 text-gray-400 text-sm">
@@ -30,7 +28,6 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Supported Platforms */}
           <div className="space-y-4">
             <h3 className="text-white font-semibold">Supported Platforms</h3>
             <ul className="space-y-2 text-gray-400 text-sm">

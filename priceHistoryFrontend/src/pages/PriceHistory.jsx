@@ -24,7 +24,6 @@ const PriceHistory = () => {
         setError('Product not found');
         return;
       }
-      
       setProduct(foundProduct);
     } catch (err) {
       setError('Failed to fetch product details');
@@ -80,7 +79,6 @@ const PriceHistory = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#0a0f24] to-[#1a2b5a] flex items-center justify-center">
         <div className="text-center">
-          <div className="text-6xl mb-4">❌</div>
           <h2 className="text-2xl font-bold text-white mb-4">Product Not Found</h2>
           <p className="text-gray-400 mb-6">{error || 'The product you are looking for does not exist.'}</p>
           <Link
@@ -97,8 +95,7 @@ const PriceHistory = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0f24] to-[#1a2b5a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Back Button */}
-        <div className="mb-6">
+        <div className="mb-8">
           <button
             onClick={() => navigate(-1)}
             className="flex items-center space-x-2 text-blue-400 hover:text-blue-300 transition-colors"
@@ -108,10 +105,8 @@ const PriceHistory = () => {
           </button>
         </div>
 
-        {/* Product Header */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Product Image */}
             <div className="w-full h-80 bg-white/20 rounded-xl overflow-hidden flex items-center justify-center">
               {product.image ? (
                 <img
@@ -146,7 +141,6 @@ const PriceHistory = () => {
                 </a>
               </div>
 
-              {/* Current Price */}
               <div className="space-y-4">
                 <div>
                   <h3 className="text-gray-400 text-sm font-medium mb-1">Current Price</h3>
@@ -155,7 +149,6 @@ const PriceHistory = () => {
                   </div>
                 </div>
 
-                {/* Price Change */}
                 {product.previousPrice > 0 && (
                   <div className="flex items-center space-x-4">
                     <div>
@@ -174,7 +167,6 @@ const PriceHistory = () => {
                 )}
               </div>
 
-              {/* Recommendation */}
               {product.recommendation && (
                 <div className="bg-white/10 rounded-xl p-4 border border-white/10">
                   <h3 className="text-white font-semibold mb-2">💡 Smart Recommendation</h3>
@@ -182,7 +174,6 @@ const PriceHistory = () => {
                 </div>
               )}
 
-              {/* Stats */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white/5 rounded-lg p-4">
                   <div className="text-green-400 text-xl font-bold">
@@ -200,11 +191,9 @@ const PriceHistory = () => {
             </div>
           </div>
         </div>
-
-        {/* Price Chart */}
+        
         <PriceChart priceHistory={product.priceHistory} productName={product.name} />
 
-        {/* Price History Table */}
         <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 mt-8">
           <h2 className="text-2xl font-bold text-white mb-6">Price History Details</h2>
           <div className="overflow-x-auto">

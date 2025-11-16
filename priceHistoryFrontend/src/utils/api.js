@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000/api';
 
-// Create axios instance with default config
+
 const api = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -10,16 +10,17 @@ const api = axios.create({
   },
 });
 
-// Add token to requests if available
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
+  console.log('[API] Request:', config.method?.toUpperCase(), config.baseURL + config.url);
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-// Handle responses and errors
+
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -32,18 +33,18 @@ api.interceptors.response.use(
   }
 );
 
-// Auth API calls
+
 export const authAPI = {
   register: (userData) => api.post('/users/register', userData),
   login: (credentials) => api.post('/users/login', credentials),
   getProfile: () => api.get('/users/profile'),
 };
 
-// Product API calls
+
 export const productAPI = {
   addProduct: (url) => api.post('/product/add', { url }),
   getProducts: () => api.get('/product/getAll'),
-  deleteProduct: (id) => api.delete(`/product/${id}`),
+  deleteProduct: (id) => api.delete(`/product/delete/${id}`),
 };
 
 export default api;

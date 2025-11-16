@@ -26,12 +26,10 @@ const MyTrackProducts = () => {
       setLoading(false);
     }
   };
-
   const handleDeleteProduct = async (productId) => {
     if (!window.confirm('Are you sure you want to remove this product from tracking?')) {
       return;
     }
-
     try {
       await productAPI.deleteProduct(productId);
       setProducts(products.filter(product => product._id !== productId));
@@ -63,6 +61,7 @@ const MyTrackProducts = () => {
       }
     });
 
+    
   const getProductStats = () => {
     if (products.length === 0) return null;
     
@@ -74,9 +73,7 @@ const MyTrackProducts = () => {
 
     return { totalProducts, avgPrice, priceDropCount };
   };
-
   const stats = getProductStats();
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#0a0f24] to-[#1a2b5a] flex items-center justify-center">
@@ -87,7 +84,6 @@ const MyTrackProducts = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0a0f24] to-[#1a2b5a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -105,7 +101,6 @@ const MyTrackProducts = () => {
           </div>
         )}
 
-        {/* Stats Cards */}
         {stats && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20">
@@ -200,7 +195,6 @@ const MyTrackProducts = () => {
             )}
           </>
         ) : (
-          /* Empty State */
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-12 border border-white/20 text-center">
             <div className="text-8xl mb-6">📦</div>
             <h3 className="text-2xl font-semibold text-white mb-4">No Products Tracked Yet</h3>

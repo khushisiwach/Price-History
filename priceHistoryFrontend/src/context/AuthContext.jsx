@@ -38,8 +38,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      console.log('Attempting login with:', { email, password: '***' });
-      console.log('API Base URL:', 'http://localhost:5000/api');
+      // console.log('Attempting login);
       
       const response = await authAPI.login({ email, password });
       console.log('Login response:', response.data);
@@ -67,9 +66,9 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
-      console.log('Attempting registration with:', { name, email, password: '***' });
+      // console.log('Attempting registration with:', { name, email, password: '***' });
       const response = await authAPI.register({ name, email, password });
-      console.log('Registration response:', response.data);
+      // console.log(' response.data);
       return { success: true };
     } catch (error) {
       console.error('Registration error:', error);

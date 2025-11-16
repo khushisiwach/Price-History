@@ -35,7 +35,6 @@ const ProductCard = ({ product, onDelete }) => {
 
   return (
     <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 border border-white/20 hover:border-blue-400/50 transition-all duration-300 hover:scale-[1.02]">
-      {/* Product Image */}
       <div className="w-full h-48 bg-white/20 rounded-lg mb-4 overflow-hidden">
         {product.image ? (
           <img
@@ -53,13 +52,11 @@ const ProductCard = ({ product, onDelete }) => {
         </div>
       </div>
 
-      {/* Product Details */}
       <div className="space-y-3">
         <h3 className="text-white font-semibold text-lg leading-tight" title={product.name}>
           {truncateName(product.name)}
         </h3>
 
-        {/* Price Information */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-gray-400 text-sm">Current Price:</span>
@@ -83,7 +80,6 @@ const ProductCard = ({ product, onDelete }) => {
           )}
         </div>
 
-        {/* Recommendation */}
         {product.recommendation && (
           <div className="bg-white/5 rounded-lg p-3 border border-white/10">
             <div className="flex items-center space-x-2">
@@ -95,7 +91,6 @@ const ProductCard = ({ product, onDelete }) => {
           </div>
         )}
 
-        {/* Action Buttons */}
         <div className="flex space-x-3 pt-2">
           <Link
             to={`/price-history/${product._id}`}

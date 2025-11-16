@@ -1,8 +1,10 @@
 import React from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from './context/AuthContext';
+
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+
 import Home from './pages/Home';
 import RegisterForm from "./pages/Register.jsx";
 import LoginForm from "./pages/Login.jsx";
@@ -10,10 +12,10 @@ import TrackProducts from './pages/TrackProducts';
 import MyTrackProducts from './pages/MyTrackProducts';
 import PriceHistory from './pages/PriceHistory';
 
-// Protected Route wrapper
+//  Protected Route 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
-  
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#0a0f24] to-[#1a2b5a] flex items-center justify-center">
@@ -24,14 +26,14 @@ const ProtectedRoute = ({ children }) => {
       </div>
     );
   }
-  
+
   return isAuthenticated ? children : <Navigate to="/login" replace />;
 };
 
-// Public Route wrapper (redirect to home if authenticated)
+//Public Route
 const PublicRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
-  
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#0a0f24] to-[#1a2b5a] flex items-center justify-center">
@@ -42,80 +44,96 @@ const PublicRoute = ({ children }) => {
       </div>
     );
   }
-  
+
   return !isAuthenticated ? children : <Navigate to="/" replace />;
 };
 
-// App Layout Component
+
 const AppLayout = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1">
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
       <Footer />
     </div>
   );
 };
 
+
 function AppContent() {
   return (
     <Routes>
-      {/* Public Routes */}
-      <Route path="/login" element={
-        <PublicRoute>
-          <LoginForm />
-        </PublicRoute>
-      } />
-      <Route path="/register" element={
-        <PublicRoute>
-          <RegisterForm />
-        </PublicRoute>
-      } />
-      
-      {/* Protected Routes */}
-      <Route path="/" element={
-        <ProtectedRoute>
-          <AppLayout>
-            <Home />
-          </AppLayout>
-        </ProtectedRoute>
-      } />
-      <Route path="/track-products" element={
-        <ProtectedRoute>
-          <AppLayout>
-            <TrackProducts />
-          </AppLayout>
-        </ProtectedRoute>
-      } />
-      <Route path="/my-products" element={
-        <ProtectedRoute>
-          <AppLayout>
-            <MyTrackProducts />
-          </AppLayout>
-        </ProtectedRoute>
-      } />
-      <Route path="/price-history/:productId" element={
-        <ProtectedRoute>
-          <AppLayout>
-            <PriceHistory />
-          </AppLayout>
-        </ProtectedRoute>
-      } />
-      
-      {/* Redirect any unknown routes to home */}
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <LoginForm />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <PublicRoute>
+            <RegisterForm />
+          </PublicRoute>
+        }
+      />
+
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <Home />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/track-products"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <TrackProducts />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/my-products"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <MyTrackProducts />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/price-history/:productId"
+        element={
+          <ProtectedRoute>
+            <AppLayout>
+              <PriceHistory />
+            </AppLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Fallback route */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
 
-function App() {
+export default function App() {
   return (
     <AuthProvider>
       <AppContent />
     </AuthProvider>
   );
 }
-
-export default App;

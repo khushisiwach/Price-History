@@ -10,7 +10,6 @@ import {
 } from 'recharts';
 
 const PriceChart = ({ priceHistory, productName }) => {
-  // Prepare data for the chart
   const chartData = priceHistory.map((entry, index) => ({
     date: new Date(entry.date).toLocaleDateString('en-IN', {
       month: 'short',

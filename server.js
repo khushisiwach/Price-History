@@ -11,9 +11,8 @@ config();
 connectDB();
 const app = express();
 
-// CORS configuration
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost:5174'], // Add your frontend URLs
+    origin: ['http://localhost:5173'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -21,7 +20,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// Add request logging middleware
 app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
     next();

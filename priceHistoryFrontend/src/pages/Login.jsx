@@ -6,7 +6,7 @@ import {
   validatePassword,
 } from "../utils/validation.js";
 
-function LoginForm() {
+ export function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -71,7 +71,6 @@ function LoginForm() {
       setLoading(false);
     }
   };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0a0f24] to-[#1a2b5a] p-4">
       <form

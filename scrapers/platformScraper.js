@@ -15,8 +15,25 @@ export  function getPlatform(url) {
    }
    
    if(platform == "flipkart"){
-       const pid= new URL(url).searchParams.get("pid");
-    return await scrapeFlipkartApi(pid);
+      let pid = null;
+      try {
+        const parsed = new URL(url);
+        pid = parsed.searchParams.get('pid');
+      } catch (e) {
+        pid = null;
+      }
+
+      if (!pid) {
+        const m1 = url.match(/\/p\/(?:[^\/]+\/)?([^\/?#]+)/i);
+        const m2 = url.match(/\/itm\/(?:[^\/]+\/)?([^\/?#]+)/i);
+        pid = (m1 && m1[1]) || (m2 && m2[1]) || null;
+      }
+
+      if (!pid) {
+        throw new Error('Could not determine Flipkart product id (pid) from URL');
+      }
+
+      return await scrapeFlipkartApi(pid);
    }
      throw new Error("Unsupported platform");
  }
