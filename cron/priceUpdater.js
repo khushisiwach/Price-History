@@ -16,7 +16,8 @@ cron.schedule("0 */6 * * *", async () => {
         const newPrice = scraped?.price;
         const oldPrice = product.currentPrice;
 
-        if (typeof newPrice === "number" && newPrice !== oldPrice) {
+        // Only update if we have a valid positive price and it's different from the stored one
+        if (typeof newPrice === "number" && newPrice > 0 && newPrice !== oldPrice) {
           product.previousPrice = oldPrice;
           product.currentPrice = newPrice;
 
@@ -26,6 +27,8 @@ cron.schedule("0 */6 * * *", async () => {
           });
 
           console.log(`Updated price for product ${product._id}`);
+        } else if (typeof newPrice === 'number' && newPrice === 0) {
+          console.log(`Skipping update for product ${product._id} because scraped price is 0`);
         }
 
         product.lastChecked = new Date();
@@ -58,7 +61,7 @@ if (process.env.NODE_ENV !== "production") {
           const scraped = await scrapeProduct(product.url);
           const newPrice = scraped?.price;
 
-          if (typeof newPrice === "number" && newPrice !== product.currentPrice) {
+          if (typeof newPrice === "number" && newPrice > 0 && newPrice !== product.currentPrice) {
             product.previousPrice = product.currentPrice;
             product.currentPrice = newPrice;
 
@@ -66,6 +69,8 @@ if (process.env.NODE_ENV !== "production") {
               price: newPrice,
               date: new Date(),
             });
+          } else if (typeof newPrice === 'number' && newPrice === 0) {
+            console.log(`Startup: skipping update for ${product._id} because scraped price is 0`);
           }
 
           product.lastChecked = new Date();

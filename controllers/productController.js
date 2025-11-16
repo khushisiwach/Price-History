@@ -29,6 +29,10 @@ export const addOrUpdateProduct = async (req, res) => {
         error: "Could not extract product info. Check if URL is correct.",
       });
     }
+    // Ensure we have a valid numeric price > 0
+    if (typeof scrapedData.price !== 'number' || scrapedData.price <= 0) {
+      return res.status(400).json({ error: 'Could not extract valid product price from the URL' });
+    }
     const platform = getPlatform(url);
     const cleanUrl =
       platform === "amazon" ? cleanAmazonUrl(url) : cleanFlipkartUrl(url);
