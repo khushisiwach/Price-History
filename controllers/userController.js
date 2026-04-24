@@ -15,7 +15,8 @@ export const registerUser = async(req,res) => {
         await  newUser.save();
         res.status(201).json({msg :"New user created succesfully"});
     }catch(error){
-           res.status(500).json({ msg: "Server error" });
+             console.error("Register user error:", error.message);
+             res.status(500).json({ msg: "Server error", error: error.message });
       }
   }
 
@@ -40,7 +41,8 @@ export const loginUser = async(req,res) => {
    })
 
     } catch(error){
-        res.status(500).json({msg:"Server error"})
+      console.error("Login user error:", error.message);
+      res.status(500).json({msg:"Server error", error: error.message})
     }
         
 }
@@ -50,7 +52,8 @@ try{
   const user = await User.findById(req.user.id).select("-password -__v");
   res.json(user);
 } catch(error){
-    res.status(500).json({ msg:"Internal Server error"});
+  console.error("Profile error:", error.message);
+  res.status(500).json({ msg:"Internal Server error", error: error.message});
 }
 }
 
