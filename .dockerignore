@@ -1,0 +1,7 @@
+node_modules
+priceHistoryFrontend/node_modules
+priceHistoryFrontend/dist
+.git
+.gitignore
+.env
+*.log

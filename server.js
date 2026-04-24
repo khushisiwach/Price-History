@@ -1,6 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import { config } from "dotenv";
+import { existsSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import connectDB from "./config/db.js";
 import  userRoutes from "./routes/authRoutes.js";
 import  productRoutes from "./routes/productRoutes.js";
@@ -10,6 +13,10 @@ import "./cron/priceUpdater.js"
 config();
 connectDB();
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const clientBuildPath = path.join(__dirname, 'public');
+const clientIndexPath = path.join(clientBuildPath, 'index.html');
 
 app.use(cors({
     origin: ['http://localhost:5173'],
@@ -26,6 +33,13 @@ app.use((req, res, next) => {
 
 app.use("/api/users" , userRoutes);
 app.use("/api/product" , productRoutes);
+
+if (existsSync(clientIndexPath)) {
+    app.use(express.static(clientBuildPath));
+    app.get(/^(?!\/api).*/, (req, res) => {
+        res.sendFile(clientIndexPath);
+    });
+}
 
 
 app.get("/" , (req,res) => {
