@@ -1,7 +1,5 @@
 import axios from 'axios';
-
 const BASE_URL = 'http://localhost:5000/api';
-
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -9,7 +7,6 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');

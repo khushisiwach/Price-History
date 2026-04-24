@@ -1,14 +1,11 @@
 import puppeteer from "puppeteer";
-
-
 export async function amazonScrapeProduct(url) {
-  const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"] });
+  const browser = await puppeteer.launch({ headless: false, args: ["--no-sandbox", "--disable-setuid-sandbox"] });
   const page = await browser.newPage();
   await page.setUserAgent(
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
   );
   await page.setViewport({ width: 1200, height: 800 });
-
   try {
     await page.goto(url, { waitUntil: "domcontentloaded", timeout: 30000 });
     async function getText(selector) {
@@ -19,7 +16,6 @@ export async function amazonScrapeProduct(url) {
         return "";
       }
     }
-
     async function getImage(selector) {
       try {
         const el = await page.$(selector);
@@ -28,7 +24,6 @@ export async function amazonScrapeProduct(url) {
         return "";
       }
     }
-
     const nameSelector = "#productTitle";
     const pricePrimary = ".a-price-whole";
     const imageSelector = "#imgTagWrapperId img";
@@ -40,7 +35,6 @@ export async function amazonScrapeProduct(url) {
     if (!priceString) {
       priceString = await getText(".a-price .a-offscreen") || (await getText("#priceblock_ourprice")) || (await getText("#priceblock_dealprice"));
     }
-
 
     let price = 0;
     if (priceString) {

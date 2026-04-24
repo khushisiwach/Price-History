@@ -6,18 +6,15 @@ import {
   validatePassword,
   validateName,
 } from "../utils/validation.js";
-
 function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [error, setError] = useState({ name: "", email: "", password: "" });
   const [serverError, setServerError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-
   const { register, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -26,7 +23,6 @@ function RegisterForm() {
       navigate('/');
     }
   }, [isAuthenticated, navigate]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError({ name: "", email: "", password: "" });
@@ -134,7 +130,7 @@ function RegisterForm() {
             </label>
             <div className="relative w-full">
               <input
-                id="password"
+                id="password" 
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={password}
@@ -149,7 +145,6 @@ function RegisterForm() {
                 {showPassword ? "🙈" : "👁️"}
               </button>
             </div>
-
             <div className="h-5 mt-1">
               {error.password && (
                 <p className="text-red-400 text-sm">{error.password}</p>

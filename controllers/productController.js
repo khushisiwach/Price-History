@@ -12,6 +12,7 @@ function cleanFlipkartUrl(url) {
   const match = url.match(/(https:\/\/www\.flipkart\.com\/[^/]+\/p\/[A-Za-z0-9]+)/);
   return match ? match[1] : url.split("?")[0].replace(/\/$/, "");
 }
+
 export const addOrUpdateProduct = async (req, res) => {
   try {
     const { url } = req.body;
@@ -22,7 +23,6 @@ export const addOrUpdateProduct = async (req, res) => {
     } catch {
       return res.status(400).json({ error: "Invalid URL format" });
     }
-
     const scrapedData = await scrapeProduct(url);
     if (!scrapedData?.name) {
       return res.status(400).json({
@@ -38,10 +38,8 @@ export const addOrUpdateProduct = async (req, res) => {
       platform === "amazon" ? cleanAmazonUrl(url) : cleanFlipkartUrl(url);
 
     let product = await Product.findOne({ url: cleanUrl, user: req.user._id });
-
     if (!product) {
       const newEntry = { price: scrapedData.price, date: new Date() };
-
       product = new Product({
         name: scrapedData.name,
         url: cleanUrl,

@@ -1,10 +1,8 @@
 import React from 'react';
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from './context/AuthContext';
-
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-
 import Home from './pages/Home';
 import RegisterForm from "./pages/Register.jsx";
 import LoginForm from "./pages/Login.jsx";

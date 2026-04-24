@@ -1,13 +1,11 @@
 import { scrapeFlipkartApi } from "./flipkartScraper.js";
 import { amazonScrapeProduct } from "./amazonScraper.js";
 
-
 export  function getPlatform(url) {
    if (url.includes("amazon.in")) return "amazon";
    if (url.includes("flipkart.com")) return "flipkart";
    throw new Error("Unsupported platform");
  }
-
  export async function scrapeProduct(url){
    const platform =  getPlatform(url);
    if(platform == "amazon"){

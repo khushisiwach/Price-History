@@ -10,7 +10,6 @@ import {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const [error, setError] = useState({ email: "", password: "" });
   const [serverError, setServerError] = useState("");
   const [success, setSuccess] = useState("");

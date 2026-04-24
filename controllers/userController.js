@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 
+
 export const registerUser = async(req,res) => {
     try{
         const{name , email, password} = req.body;
@@ -10,7 +11,6 @@ export const registerUser = async(req,res) => {
           if(existingUser) return res.status(400).json({msg : "User already exist"});
 
           const hashPassword = await bcrypt.hash(password , 10);
-
           const newUser = new User({ name , email , password:hashPassword});
         await  newUser.save();
         res.status(201).json({msg :"New user created succesfully"});

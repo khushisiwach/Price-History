@@ -4,7 +4,6 @@ const priceEntrySchema = new mongoose.Schema({
   price: { type: Number },
   date: { type: Date, default: () => new Date() },
 })
-
 const productSchema = new mongoose.Schema({
 name:{type:String},
 url:{type:String, required:true},
@@ -12,7 +11,6 @@ asin: { type: String },// Optional: for Amazon, store ASIN to identify product e
 image: {type:String},
 currentPrice: {type:Number , required:true},
 previousPrice: {type:Number, default:0},
-
 priceHistory:[priceEntrySchema],  
 user: {type:mongoose.Schema.Types.ObjectId , ref:"User"},
 lastChecked:{type:Date ,default:Date.now()},
@@ -26,7 +24,6 @@ productSchema.set("toJSON", {
         ret[key] = ret[key].toISOString();
       }
     }
-
     if (ret.priceHistory && Array.isArray(ret.priceHistory)) {
       ret.priceHistory = ret.priceHistory.map(ph => {
         const rawDate = ph.date || ph.Date || ph.createdAt || null;
