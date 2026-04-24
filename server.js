@@ -4,7 +4,7 @@ import { config } from "dotenv";
 import { existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import connectDB from "./config/db.js";
+import connectDB, { isDatabaseConnected, startDbReconnectLoop } from "./config/db.js";
 import  userRoutes from "./routes/authRoutes.js";
 import  productRoutes from "./routes/productRoutes.js";
 
@@ -26,6 +26,15 @@ app.use(cors({
 app.use(express.json());
 app.use((req, res, next) => {
     console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
+
+app.use("/api", (req, res, next) => {
+    if (!isDatabaseConnected()) {
+        return res.status(503).json({
+            msg: "Database is temporarily unavailable. Please try again.",
+        });
+    }
     next();
 });
 
@@ -51,4 +60,5 @@ app.listen(PORT, () => {
 })
 
 connectDB();
+startDbReconnectLoop();
 await import("./cron/priceUpdater.js");
