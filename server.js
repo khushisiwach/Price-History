@@ -7,11 +7,11 @@ import { fileURLToPath } from 'url';
 import connectDB from "./config/db.js";
 import  userRoutes from "./routes/authRoutes.js";
 import  productRoutes from "./routes/productRoutes.js";
-import "./cron/priceUpdater.js"
 
 
 config();
 connectDB();
+await import("./cron/priceUpdater.js");
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
