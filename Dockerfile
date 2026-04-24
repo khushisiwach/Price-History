@@ -1,4 +1,4 @@
-FROM node:18 AS frontend-build
+FROM node:22-slim AS frontend-build
 
 WORKDIR /app/priceHistoryFrontend
 
@@ -8,7 +8,7 @@ RUN npm install
 COPY priceHistoryFrontend/ ./
 RUN npm run build
 
-FROM node:18
+FROM node:22-slim
 
 WORKDIR /app
 

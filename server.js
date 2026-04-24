@@ -10,8 +10,6 @@ import  productRoutes from "./routes/productRoutes.js";
 
 
 config();
-connectDB();
-await import("./cron/priceUpdater.js");
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -51,3 +49,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`SERVER is running on ${PORT} 🌨️ `);
 })
+
+connectDB();
+await import("./cron/priceUpdater.js");
